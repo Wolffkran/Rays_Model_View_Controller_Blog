@@ -27,6 +27,6 @@
     "sequelize": "^5.21.2"
   },
   "engines": {
-    "node": "14.x" // Adjust the version to match your project's requirements
+    "node": "14.x"
   }
 }
