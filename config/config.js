@@ -12,13 +12,15 @@ if (process.env.JAWSDB_URL) {
         rejectUnauthorized: false, // For MySQL on Heroku
       },
     },
+    logging: false, 
   });
 } else {
   // Use local database configuration
   sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: 'localhost',
     dialect: 'mysql',
-    port: 3306,
+    port: 3001,
+    logging: console.log, // Log all SQL queries to console for development
   });
 }
 
