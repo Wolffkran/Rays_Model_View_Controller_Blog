@@ -2,12 +2,12 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
-const helpers = require('./Rays_Model_View_Controller_Blog/Main/utils/helpers');
+const helpers = require('./utils/helpers');  // Adjusted require statement
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const sequelize = require('./Rays_Model_View_Controller_Blog/Main/config/config');
+const sequelize = require('./config/config');  // Adjusted require statement
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sess = {
@@ -36,7 +36,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(require('./Rays_Model_View_Controller_Blog/Main/controllers'));
+app.use(require('./controllers'));  // Assuming controllers are in the same directory
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
