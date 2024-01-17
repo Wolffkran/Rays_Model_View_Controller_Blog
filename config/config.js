@@ -1,17 +1,18 @@
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
+let sequelize;
+
 if (process.env.JAWSDB_URL) {
   sequelize = new Sequelize(process.env.JAWSDB_URL, {
     dialect: 'mysql',
     dialectOptions: {
       ssl: {
-        rejectUnauthorized: false, // For MySQL on Heroku
+        rejectUnauthorized: false,
       },
     },
   });
 } else {
-  // Use local configuration or whatever is appropriate for development
   sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: 'localhost',
     dialect: 'mysql',
