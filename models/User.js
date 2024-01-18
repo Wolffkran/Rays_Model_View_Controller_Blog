@@ -16,37 +16,45 @@ User.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     username: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [4]
-      }
-    }
+        len: [4],
+      },
+    },
   },
   {
     hooks: {
-      // set up beforeCreate lifecycle "hook" functionality
+      // set up beforeCreate and beforeUpdate lifecycle "hook" functionality
       beforeCreate: async (newUserData) => {
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         return newUserData;
       },
       beforeUpdate: async (updatedUserData) => {
-        updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+        if (updatedUserData.changed('password')) {
+          updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+        }
         return updatedUserData;
-      }
+      },
+      beforeSave: async (userInstance) => {
+        if (userInstance.changed('password')) {
+          userInstance.password = await bcrypt.hash(userInstance.password, 10);
+        }
+        return userInstance;
+      },
     },
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'User'
+    modelName: 'User',
   }
 );
 
