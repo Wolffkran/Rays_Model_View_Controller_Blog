@@ -15,7 +15,7 @@ const sess = {
   cookie: {
     maxAge: 300000,
     httpOnly: true,
-    secure: false,
+    secure: true, // Set to true if using HTTPS
     sameSite: 'strict',
   },
   resave: false,
@@ -38,7 +38,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('./controllers'));  // Assuming controllers are in the same directory
 
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}!`);
-  sequelize.sync({ force: false });
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}!`);
+  });
 });
