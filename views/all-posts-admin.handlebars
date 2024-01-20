@@ -1,8 +1,15 @@
-<div class="posts-list">
-  {{#each posts}}
-    <a class="post-item" href="/dashboard/edit/{{id}}">
-      <span class="post-title">{{title}}</span>
-      <span class="post-date">{{format_date createdAt}}</span>
-    </a>
-  {{/each}}
-</div>
+<!-- all-posts-admin.handlebars -->
+{{main}}
+
+{{#contentFor "body"}}
+  <div class="posts-list">
+    {{#each posts}}
+      <div class="post-item">
+        <a href="/dashboard/edit/{{id}}">
+          <span class="post-title">{{title}}</span>
+          <span class="post-date">{{format_date createdAt}}</span>
+        </a>
+      </div>
+    {{/each}}
+  </div>
+{{/contentFor}}

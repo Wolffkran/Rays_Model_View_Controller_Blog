@@ -1,3 +1,4 @@
+<!-- dashboard.handlebars -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,10 +23,19 @@
   </header>
 
   <main class="col-auto">
-    {{{body}}}
+    <div class="posts-list">
+      {{#each posts}}
+        <div class="post-item">
+          <a href="/dashboard/edit/{{id}}">
+            <span class="post-title">{{title}}</span>
+            <span class="post-date">{{format_date createdAt}}</span>
+          </a>
+        </div>
+      {{/each}}
+    </div>
   </main>
 
-  <footer class="footer flex-row justify-center">
+  <footer class="flex-row justify-center">
     <a href="/dashboard/new">➕ New Post</a>
   </footer>
 </body>
