@@ -16,11 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       if (response.ok) {
-        document.location.replace('/dashboard');
+        window.location.replace('/dashboard');
       } else {
         const errorMessage = await response.text();
         console.error('Failed to sign up:', errorMessage);
-        alert('Failed to sign up. Check the console for details.');
+        alert(`Failed to sign up. ${errorMessage}`);
       }
     } catch (error) {
       console.error('Error during signup:', error);
