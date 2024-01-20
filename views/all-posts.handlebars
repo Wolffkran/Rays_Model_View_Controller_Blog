@@ -1,17 +1,17 @@
-<div class="posts">
+<div class="post-container">
   {{#each posts}}
-  <article class="card">
-    <div class="card-header flex-row justify-space-between">
-      <h2>
-        <a href="/post/{{id}}">{{title}}</a>
-      </h2>
-      <div>
-        Posted by {{User.username}} on {{format_date createdAt}}
+    <article class="post-card">
+      <header class="post-header flex-row justify-space-between">
+        <h2>
+          <a href="/post/{{id}}">{{title}}</a>
+        </h2>
+        <div class="post-meta">
+          Posted by {{User.username}} on {{format_date createdAt}}
+        </div>
+      </header>
+      <div class="post-body">
+        {{body}}
       </div>
-    </div>
-    <div class="card-body">
-      {{body}}
-    </div>
-  </article>
+    </article>
   {{/each}}
 </div>
