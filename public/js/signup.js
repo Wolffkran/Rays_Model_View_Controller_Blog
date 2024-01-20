@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const passwordEl = document.querySelector('#password-input-signup');
 
     try {
-      const response = await fetch('/api/user', {
+      const response = await fetch('/api/user-route', {
         method: 'POST',
         body: JSON.stringify({
           username: usernameEl.value,
