@@ -38,8 +38,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('./controllers/api/user-routes', userRoutes); 
-app.use('./controllers/api/post-routes', postRoutes); 
+app.use('/api/user', userRoutes); // Update with the correct path for user routes
+app.use('/api/post', postRoutes); // Update with the correct path for post routes
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
