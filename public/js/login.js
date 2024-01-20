@@ -15,8 +15,13 @@ const loginFormHandler = async function(event) {
 
   if (response.ok) {
     document.location.replace('/dashboard');
+    // Clear form fields after successful login
+    usernameEl.value = '';
+    passwordEl.value = '';
   } else {
-    alert('Failed to login');
+    const errorMessage = await response.text();
+    console.error('Failed to login:', errorMessage);
+    alert(`Failed to login. ${errorMessage}`);
   }
 };
 
