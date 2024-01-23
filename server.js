@@ -3,7 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const helpers = require('./utils/helpers');  
-const sequelize = require('./config/config');
+const { sequelize } = require('./config/config'); // Import sequelize from config
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const routes = require('./controllers');
 const userRoutes = require('./controllers/api/user-routes'); // Import user routes
@@ -23,8 +23,8 @@ const sess = {
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
-    db: sequelize
-  })
+    db: sequelize,
+  }),
 };
 
 app.use(session(sess));
@@ -38,8 +38,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/user', userRoutes); // Update with the correct path for user routes
-app.use('/api/post', postRoutes); // Update with the correct path for post routes
+app.use('/api/user', userRoutes); 
+app.use('/api/post', postRoutes); 
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
