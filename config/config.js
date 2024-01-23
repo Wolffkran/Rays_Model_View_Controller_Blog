@@ -22,4 +22,30 @@ if (process.env.JAWSDB_URL) {
   });
 }
 
+// Add the following block
+if (process.env.NODE_ENV === 'production') {
+  const SequelizeStore = require('connect-session-sequelize')(require('express-session').Store);
+
+  const session = require('express-session')({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({
+      db: sequelize,
+      checkExpirationInterval: 15 * 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds.
+      expiration: 24 * 60 * 60 * 1000, // The maximum age (in milliseconds) of a valid session.
+      extendDefaultFields: function (defaults, session) {
+        return {
+          data: defaults.data,
+          expires: defaults.expires,
+          userId: session.userId, // Add your user id here
+        };
+      },
+    }),
+  });
+
+  // Use the session middleware
+  app.use(session);
+}
+
 module.exports = sequelize;
