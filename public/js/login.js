@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const loginFormHandler = async function (event) {
+document.addEventListener('DOMContentLoaded', function() {
+  const loginFormHandler = async function(event) {
     event.preventDefault();
 
     const usernameEl = document.querySelector('#username-input-login');
@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
       if (response.ok) {
         window.location.replace('/dashboard');
       } else {
-        const errorMessage = await response.text();
-        console.error('Failed to login:', errorMessage);
-        alert(`Failed to login. ${errorMessage}`);
+        const errorMessage = await response.json();
+        console.error('Failed to login:', errorMessage.message);
+        alert(`Failed to login. ${errorMessage.message}`);
       }
     } catch (error) {
       console.error('Error during login:', error);
@@ -28,7 +28,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   };
 
-  document
-    .querySelector('#login-form')
-    .addEventListener('submit', loginFormHandler);
+  document.querySelector('#login-form').addEventListener('submit', loginFormHandler);
 });
