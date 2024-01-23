@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
-const sequelize = require('../config/config');
+const { sequelize } = require('../config/config'); // Import the sequelize instance
 
 // create our User model
 class User extends Model {
@@ -32,12 +32,11 @@ User.init(
   },
   {
     hooks: {
-      // set up beforeCreate lifecycle "hook" functionality
+      // set up beforeCreate and beforeUpdate lifecycle "hook" functionality
       beforeCreate: async (newUserData) => {
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         return newUserData;
       },
-      // set up beforeUpdate lifecycle "hook" functionality
       beforeUpdate: async (updatedUserData) => {
         if (updatedUserData.changed('password')) {
           updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
