@@ -10,11 +10,11 @@ As a developer who writes about tech, I want a CMS-style blog site so that I can
 
 ## Installation
 
-To install the necessary dependencies, run the following command:
-```
-npm install
-```
+1.Clone the repository to your local machine: https://github.com/Wolffkran/Rays_Model_View_Controller_Blog.git
 
+2.Navigate to the project directory: cd Rays_Model_View_Controller_Blog
+
+3. Install dependencies using ```npm i```
 
 ## Usage
 
