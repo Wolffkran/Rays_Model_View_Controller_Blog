@@ -4,7 +4,7 @@ const { Sequelize } = require('sequelize');
 
 let sequelize;
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL) {
   // For production, use the DATABASE_URL provided by Heroku
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'mysql',
