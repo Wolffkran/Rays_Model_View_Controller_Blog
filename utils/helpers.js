@@ -1,5 +1,7 @@
+const moment = require('moment');
+
 module.exports = {
-  format_date: date => {
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-  }
+  format_date: (date) => {
+    return moment(date).format('MMMM D, YYYY [at] h:mm A');
+  },
 };
