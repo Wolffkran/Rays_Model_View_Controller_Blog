@@ -32,22 +32,17 @@ User.init(
   },
   {
     hooks: {
-      // set up beforeCreate and beforeUpdate lifecycle "hook" functionality
+      // set up beforeCreate lifecycle "hook" functionality
       beforeCreate: async (newUserData) => {
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         return newUserData;
       },
+      // set up beforeUpdate lifecycle "hook" functionality
       beforeUpdate: async (updatedUserData) => {
         if (updatedUserData.changed('password')) {
           updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
         }
         return updatedUserData;
-      },
-      beforeSave: async (userInstance) => {
-        if (userInstance.changed('password')) {
-          userInstance.password = await bcrypt.hash(userInstance.password, 10);
-        }
-        return userInstance;
       },
     },
     sequelize,
