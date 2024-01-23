@@ -2,16 +2,31 @@ require('dotenv').config();
 
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST || 'localhost',
+let sequelize;
+
+if (process.env.NODE_ENV === 'production') {
+  // For production, use the DATABASE_URL provided by Heroku
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'mysql',
-    port: process.env.PORT || 3306,
-  }
-);
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
+  });
+} else {
+  // For other environments, use your existing configuration
+  sequelize = new Sequelize(
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
+    {
+      host: process.env.DB_HOST || 'localhost',
+      dialect: 'mysql',
+      port: process.env.PORT || 3306,
+    }
+  );
+}
 
 // Export the sequelize instance
 module.exports = sequelize;
